@@ -4,7 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
+var index = require('./src/routes/index');
 
 var app = express();
 
@@ -30,6 +30,8 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   // res.render('error');
+  res.send({code: err.status || 500, msg: err.message});
+  res.end();
 });
 
 module.exports = app;
