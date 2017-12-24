@@ -6,8 +6,25 @@ let options = {
     promiseLibrary: require('bluebird'),
     useMongoClient: true,
     server: {
-        auto_reconnect: true,
-        poolSize: 10
+        socketOptions: {
+          socketTimeoutMS: 0,
+          keepAlive: true
+        },
+        reconnectTries: 30
+    },
+    replset: {
+        socketOptions: {
+          socketTimeoutMS: 0,
+          keepAlive: true
+        },
+        reconnectTries: 30
+    },
+    mongos: {
+        socketOptions: {
+          socketTimeoutMS: 0,
+          keepAlive: true
+        },
+        reconnectTries: 30
     }
 };
 mongoose.Promise = global.Promise;
