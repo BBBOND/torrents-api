@@ -23,10 +23,11 @@ const getDocsByQueryWithRetry = async (query, page, size, retryTime) => {
  * 按条件查询, 重试一次
  */
 router.get('/search', async (req, res, next) => {
-  console.log('---------------', req.query);
+
   let query = {
-    name: `/${req.query.search || ''}/`,
+    name: new RegExp(req.query.search || ''),
   }
+  console.log(query);
   let json = await getDocsByQueryWithRetry(query, req.query.page || 1, req.query.size || 10, 2);
   res.send(json);
   res.end();
